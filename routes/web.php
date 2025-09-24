@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\Auth\RegisterController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [MainController::class, 'index'])->name('main');
 Route::get('/generate-questions/{lesson}', [MainController::class, 'generateQuestions'])->name('generate.questions');
@@ -16,7 +17,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
+Route::post('register', [RegisterController::class, 'register'])->name('register.user');
 
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::resource('lessons', \App\Http\Controllers\Admin\LessonController::class);

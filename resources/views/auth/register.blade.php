@@ -1,83 +1,94 @@
-@extends('layouts.app')
+@include('partials.header')
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin=""/>
+<link
+    rel="stylesheet"
+    as="style"
+    onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Work+Sans%3Awght%40400%3B500%3B700%3B900"
+/>
 
-@section('content')
-<style>
-    body { background: #f7fafd !important; }
-    .register-container {
-        min-height: 80vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .register-card {
-        background: #f4f7fa;
-        border: none;
-        border-radius: 1.2rem;
-        box-shadow: 0 2px 16px #0001;
-        padding: 2.5rem 2rem 2rem 2rem;
-        max-width: 480px;
-        width: 100%;
-        margin: 0 auto;
-    }
-    .register-title {
-        font-size: 2rem;
-        font-weight: 700;
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-    .form-label { font-weight: 500; }
-    .btn-main {
-        background: #1877f2;
-        color: #fff;
-        border-radius: .7rem;
-        font-weight: 500;
-        width: 100%;
-        padding: .7rem;
-        font-size: 1.1rem;
-    }
-    .login-link {
-        text-align: center;
-        margin-top: 1.5rem;
-        color: #6c757d;
-        font-size: 1rem;
-    }
-    .login-link a { color: #1877f2; text-decoration: underline; }
-</style>
-<div class="register-container">
-    <div class="register-card">
-        <div class="register-title">Создать учетную запись</div>
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-            <div class="mb-3">
-                <label for="name" class="form-label">Полное имя</label>
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
-                @error('name')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
+<title>UNT</title>
+<link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,"/>
+
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<body>
+<div class="flex h-auto min-h-screen w-full flex-col bg-[#fcfbf8] group/design-root overflow-x-hidden"
+     style='font-family: "Work Sans", "Noto Sans", sans-serif;'>
+    <div class="layout-container flex h-full grow flex-col">
+        <div class="px-40 flex flex-1 justify-center py-5">
+            <div class="flex flex-col w-[512px] max-w-[512px] py-5 max-w-[960px] flex-5">
+                <h2 class="text-[#1b180d] tracking-light text-[28px] font-bold leading-tight px-4">UNT жүйесіне
+                    қосылыңыз</h2>
+                <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                    <h5 class="text-[#1b180d] tracking-light text-[14px] font-italic leading-light px-2">Біздің
+                        платформаға тіркеліп өз біліміңізді шыңдаңыз. Апта сайынғы жаңа сұрақтармен танысып, өз
+                        біліміңізді сынаңыз</h5>
+                </div>
+
+                <form method="POST" action="{{route('register.user')}}">
+                    @csrf
+                    <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                        <label class="flex flex-col min-w-40 flex-1">
+                            <p class="text-[#1b180d] text-base font-medium leading-normal pb-2">Атыңыз</p>
+                            <input
+                                name="name" required
+                                placeholder="Өз атыңызды жазыңыз"
+                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#1b180d] focus:outline-0 focus:ring-0 border-none bg-[#f3f0e7] focus:border-none h-14 placeholder:text-[#9a864c] p-4 text-base font-normal leading-normal"
+                                value=""
+                            />
+                            @error('name')
+                            <p class="text-red-600 mt-1 text-sm">{{ $message }}</p>
+                            @enderror
+                        </label>
+                    </div>
+
+                    <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                        <label class="flex flex-col min-w-40 flex-1">
+                            <p class="text-[#1b180d] text-base font-medium leading-normal pb-2">Почта</p>
+                            <input
+                                name="email" required
+                                placeholder="Өз почтаңызды жазыңыз"
+                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#1b180d] focus:outline-0 focus:ring-0 border-none bg-[#f3f0e7] focus:border-none h-14 placeholder:text-[#9a864c] p-4 text-base font-normal leading-normal"
+                                value=""
+                            />
+                            @error('email')
+                            <p class="text-red-600 mt-1 text-sm">{{ $message }}</p>
+                            @enderror
+                        </label>
+                    </div>
+
+
+                    <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                        <label class="flex flex-col min-w-40 flex-1">
+                            <p class="text-[#1b180d] text-base font-medium leading-normal pb-2">Пароль</p>
+                            <input
+                                name="password" required
+                                placeholder="Өз паролыңызды жазыңыз және ешкімге айтпаңыз"
+                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#1b180d] focus:outline-0 focus:ring-0 border-none bg-[#f3f0e7] focus:border-none h-14 placeholder:text-[#9a864c] p-4 text-base font-normal leading-normal"
+                                value=""
+                            />
+                            @error('password')
+                            <p class="text-red-600 mt-1 text-sm">{{ $message }}</p>
+                            @enderror
+                        </label>
+                    </div>
+                    <div class="flex px-4 py-3">
+                        <button
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 flex-1 bg-[#eebd2b] text-[#1b180d] text-sm font-bold leading-normal tracking-[0.015em]"
+                            type="submit"
+                        >
+                            <span class="truncate">Тіркелу</span>
+                        </button>
+                    </div>
+                </form>
+
+
+                <p class="text-[#9a864c] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center underline">
+                    Тіркелдіңіз бе? Кіру</p>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Адрес электронной почты</label>
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
-                @error('email')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Пароль</label>
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
-                @error('password')
-                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
-            </div>
-            <div class="mb-3">
-                <label for="password-confirm" class="form-label">Подтвердите пароль</label>
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-            </div>
-            <button type="submit" class="btn btn-main">Зарегистрироваться</button>
-        </form>
-        <div class="login-link">
-            Уже есть учетная запись? <a href="{{ route('login') }}">Войти</a>
         </div>
     </div>
 </div>
-@endsection
+</body>
+
+@include('partials.footer')
